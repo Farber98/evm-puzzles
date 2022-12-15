@@ -21,7 +21,7 @@ and stop gracefully. This is achieved by sending the value 8, so JUMP will arriv
 
 ## Detailed explanation
 
-CALLVALUE gets value sent from tx and puts it in front of the stack.
+CALLVALUE gets value sent from tx and puts it in front of the stack. We are sending value 8.
 
 Stack before CALLVALUE
 
