@@ -46,7 +46,23 @@
 
 Same idea as before, the calldata value we are passing in is the bytecode that the created smart contract will execute. In this exercise, the trick is to make the call fail, so it returns a 0 value on top of the stack. This 0 value will match the equality condition, making the jump possible.
 
-How we can make the call fail? We could use REVERT or SELFDESTRUCT for example. 0x60FF60005360016000F3
+How we can make the call fail? We could use REVERT or SELFDESTRUCT opcodes and pass them to the smart contract created as instructions to execute.
+
+One of the values that solves the puzzle is: 0x60FF60005360016000F3
+
+But wait, what is 0x60FF60005360016000F3? It is the bytecode that created contract will execute.
+
+```
+0x60FF60005360016000F3 bytecode is equal to the following mnemonic evm code:
+00 60FF PUSH1   FF (where FF is selfdestruct)
+01 6000 PUSH1   00
+03 53   MSTORE8 00 (loads to memory)
+05 6001 PUSH1   01
+06 6000 PUSH1   00
+07 F3   RETURN
+```
+
+In this way, the contract will selfdestruct after it's creation, and when we try to make a call, it will fail.
 
 ## Detailed explanation
 
